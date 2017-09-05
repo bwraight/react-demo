@@ -30,9 +30,16 @@ class ManageCoursePage extends React.Component {
     return this.setState({course: course});
   }
 
+  //redux state resetting, when page not immediately redirected.
+  //redirect function call, doesn't help, needs to be called inline.
+  //thunk promise not holding up page load.
   saveCourse(event) {
     event.preventDefault;
-    this.props.actions.saveCourse(this.state.course);
+    this.props.actions.saveCourse(this.state.course)
+      .then(this.context.router.push('/courses'));
+  }
+
+  redirect() {
     this.context.router.push('/courses');
   }
 
